@@ -5,7 +5,6 @@ import 'package:projects/Login.dart';
 import 'package:projects/Product.dart';
 import 'package:projects/ProductDetails.dart';
 import 'package:projects/ProductsHome.dart';
-import 'package:projects/SignIn2.dart';
 import 'package:projects/components/customButton.dart';
 import 'package:projects/home_layout.dart';
 import '../components/CustomTextFormField.dart';
@@ -118,7 +117,8 @@ class _SignUpState extends State<SignUp> {
       FireBaseHelper().signUp(emailController.text.toString(), passwordController.text.toString(), userNameController.text.toString()).then((value) {
         if(value is User)
         {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>home_layout(prods: widget.prods)));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>
+              home_layout(prods: widget.prods,userEmail: value.email,userName: value.displayName)));
         }
         else if (value is String)
         {

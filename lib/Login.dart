@@ -109,7 +109,10 @@ class _LogInState extends State<LogIn> {
       FireBaseHelper().signIn(emailController.text.toString(), passwordController.text.toString()).then((value) {
         if(value is User)
         {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>home_layout(prods: widget.prods)));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>
+              home_layout(prods: widget.prods,userEmail: value.email,userName: value.displayName)
+            )
+          );
         }
         else if (value is String)
         {

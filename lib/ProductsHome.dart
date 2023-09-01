@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:projects/ProductDetails.dart';
 
@@ -5,13 +6,16 @@ import 'DioHelper.dart';
 import 'Product.dart';
 
 class ProductsHome extends StatefulWidget {
-   ProductsHome({super.key, required this.prods});
-  final List<Product> prods;
-  @override
-  State<ProductsHome> createState() => _ProductsHomeState();
+   ProductsHome({super.key, required this.prods, required this.userEmail});
+   final String? userEmail;
+   final List<Product> prods;
+   @override
+   State<ProductsHome> createState() => _ProductsHomeState();
 }
 
 class _ProductsHomeState extends State<ProductsHome> {
+
+  late String? userEmail = widget.userEmail;
   late List<Product> products=widget.prods;
   List<Product> temp=[];
   List<bool> iconFill=  List.filled(30, false, growable : true);

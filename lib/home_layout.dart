@@ -14,21 +14,19 @@ import 'package:dio/dio.dart';
 
 class home_layout extends StatefulWidget {
 
-  home_layout({Key? key, required this.prods}) : super(key: key);
+  home_layout({Key? key, required this.prods, required this.userEmail, required this.userName}) : super(key: key);
+  final String? userEmail;
+  final String? userName;
   final List<Product> prods;
   @override
   State<home_layout> createState() => _home_layoutState();
 }
 
 class _home_layoutState extends State<home_layout> {
-
+  late String? userEmail = widget.userEmail;
+  late String? userName = widget.userName;
   late List<Product> products=widget.prods;
-  List<Widget>Screens=[
-    Container(),
-    const Cart(),
-    const Favourites(),
-    const AccountDetails(),
-  ];
+
 
 
   void _onItemTapped(int index) {
@@ -96,7 +94,8 @@ class _home_layoutState extends State<home_layout> {
           )
         ],
       ),
-      body: products.isNotEmpty? ci==0?ProductsHome(prods: widget.prods):Screens[ci]: Container(
+      body: products.isEmpty?
+      Container(
         color: Colors.white,
         child: Center(
           child: CircularProgressIndicator(
@@ -104,8 +103,11 @@ class _home_layoutState extends State<home_layout> {
             backgroundColor: Colors.white,
           ),
         ),
-      ),
-
+      ):
+      ci==0?ProductsHome(prods: widget.prods,userEmail: userEmail):
+      ci==1?Cart(prods:widget.prods,userEmail: userEmail):
+      ci==2?Favourites(prods: widget.prods,userEmail: userEmail):
+      AccountDetails(userEmail: userEmail,userName: userName,),
         floatingActionButton: DotNavigationBar(
         marginR: EdgeInsets.only(left:30),
         backgroundColor: Colors.black,

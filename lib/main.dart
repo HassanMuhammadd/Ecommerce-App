@@ -1,11 +1,9 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:projects/AccountDetails.dart';
 import 'package:projects/Login.dart';
-import 'package:projects/LoginPage.dart';
 import 'package:projects/Product.dart';
 import 'package:projects/DioHelper.dart';
 import 'package:projects/ProductDetails.dart';
@@ -95,7 +93,8 @@ class _firstScreenState extends State<firstScreen> {
   {
     if(FirebaseAuth.instance.currentUser!=null)
     {
-      return home_layout(prods: products);
+      print(FirebaseAuth.instance.currentUser!.email);
+      return home_layout(prods: products,userEmail: FirebaseAuth.instance.currentUser!.email,userName: FirebaseAuth.instance.currentUser!.displayName);
     }
     else {
       return LogIn(prods: products);

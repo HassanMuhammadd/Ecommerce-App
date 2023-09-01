@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 class AccountDetails extends StatefulWidget {
-  const AccountDetails({super.key});
-
+  AccountDetails({super.key, required this.userName,required this.userEmail});
+  final String? userName;
+  final String? userEmail;
   @override
   State<AccountDetails> createState() => _AccountDetailsState();
 }
 
 class _AccountDetailsState extends State<AccountDetails> {
+
+  late String? userName = widget.userName;
+  late String? userEmail = widget.userEmail;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +27,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                 color: Color.fromRGBO(22, 153, 81, 1),
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35),bottomRight: Radius.circular(35))
             ),
-            child: const Row(
+            child:  Row(
               children: [
                 CircleAvatar(
                   backgroundImage: AssetImage("assets/images/avatar.jpg"),
@@ -33,9 +38,9 @@ class _AccountDetailsState extends State<AccountDetails> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Name",style: TextStyle(fontSize: 24,color: Colors.white,fontWeight: FontWeight.bold),),
+                    Text("${userName}",style: TextStyle(fontSize: 24,color: Colors.white,fontWeight: FontWeight.bold),),
                     SizedBox(height:10),
-                    Text("Email@gmail.com",style: TextStyle(fontSize: 16,color: Colors.white),),
+                    Text("${userEmail}",style: TextStyle(fontSize: 16,color: Colors.white),),
                   ],
                 ),
               ],
