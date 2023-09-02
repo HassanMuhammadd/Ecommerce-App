@@ -100,10 +100,6 @@ class _SignUpState extends State<SignUp> {
         ));
   }
 
-  //ToDosignUpAction
-
-
-
   void signUpAction() async{
     if(formKey.currentState!.validate()){
       showDialog(context: context, builder: (context)
@@ -113,11 +109,11 @@ class _SignUpState extends State<SignUp> {
         );
       }
       );
-      FireBaseHelper().signUp(emailController.text.toString(), passwordController.text.toString(), userNameController.text.toString()).then((value) {
+      await FireBaseHelper().signUp(emailController.text.toString(), passwordController.text.toString(), userNameController.text.toString()).then((value) {
         if(value is User)
         {
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>
-              home_layout(prods: widget.prods,userEmail: value.email,userName: value.displayName)));
+              home_layout(prods: widget.prods,userEmail: value.email,userName:userNameController.text.toString())));
         }
         else if (value is String)
         {

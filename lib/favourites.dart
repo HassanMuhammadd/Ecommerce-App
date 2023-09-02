@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projects/Product.dart';
-import 'package:projects/ProductsHome.dart';
 import 'package:projects/sqflite.dart';
 
 import 'ProductDetails.dart';
@@ -56,12 +55,8 @@ class _FavouritesState extends State<Favourites> {
 
     return  favId.isEmpty?
     Container(
-      color: Colors.white,
       child: const Center(
-        child: CircularProgressIndicator(
-          color: Color.fromRGBO(22, 153, 81, 1),
-          backgroundColor: Colors.white,
-        ),
+        child: Text("You have no Items on your favourites list."),
       ),
     ) :
     Scaffold(
@@ -80,7 +75,7 @@ class _FavouritesState extends State<Favourites> {
                     child: InkWell(
                       onTap: (){
                         //on Product Tap
-                        Navigator.of(context).push( MaterialPageRoute(builder: (context)=>ProductDetails(prod:products[index])));
+                        Navigator.of(context).push( MaterialPageRoute(builder: (context)=>ProductDetails(prod:products[index],userEmail: userEmail)));
                       },
                       child: Container(
                         decoration: BoxDecoration(

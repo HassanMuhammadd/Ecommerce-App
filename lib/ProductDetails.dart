@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:projects/DioHelper.dart';
 import 'package:projects/Product.dart';
-import 'package:projects/ProductsHome.dart';
+import 'package:projects/sqflite2.dart';
 
 class ProductDetails extends StatefulWidget {
 
-  const ProductDetails({Key? key, required this.prod}) : super(key: key);  //const ProductDetails({super.key});
+  const ProductDetails({Key? key, required this.prod,required this.userEmail}) : super(key: key);  //const ProductDetails({super.key});
   final Product prod;
-
+  final String? userEmail;
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-
+  Sqflite2 sqlDb = Sqflite2();
   int imageIdx = 0;
   late Product product = widget.prod;
+  late String? userEmail = widget.userEmail;
+
+  Future<bool> checkIfInDatabase(int id)async{
+    List<Map>res=await sqlDb.readData('''
+      SELECT $id from cart where email = '$userEmail' and id=$id;
+    ''');
+    return res.length>0;
+  }
 
   @override
   void initState() {
     super.initState();
-    //fetchProducts();
   }
   @override
   Widget build(BuildContext context) {
@@ -132,7 +138,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                       borderRadius: BorderRadius.circular(20)
                     ),
                     padding: const EdgeInsets.all(15),
-                    onPressed: (){} ,
+                    onPressed: ()async{
+
+                      bool found = await checkIfInDatabase(product.id);
+                      if(!found)
+                        {
+                          //insert if item not in db
+                          await sqlDb.insertData('''
+                                INSERT INTO cart (id,email) values (${product.id}, "${userEmail}")
+                                            ''');
+                        }
+
+                    } ,
                     child: const Text("Add To Cart",textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
                   ),
                 ),

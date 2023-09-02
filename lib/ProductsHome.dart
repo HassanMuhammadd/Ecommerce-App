@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:projects/ProductDetails.dart';
 import 'package:projects/sqflite.dart';
 
-import 'DioHelper.dart';
 import 'Product.dart';
 
 class ProductsHome extends StatefulWidget {
@@ -155,7 +153,7 @@ class _ProductsHomeState extends State<ProductsHome> {
                     child: InkWell(
                       onTap: (){
                         //on Product Tap
-                        Navigator.of(context).push( MaterialPageRoute(builder: (context)=>ProductDetails(prod:products[index])));
+                        Navigator.of(context).push( MaterialPageRoute(builder: (context)=>ProductDetails(prod:products[index],userEmail: userEmail)));
                       },
                       child: Container(
                         decoration: BoxDecoration(
