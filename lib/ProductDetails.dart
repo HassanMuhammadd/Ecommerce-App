@@ -34,9 +34,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image.network(product.images[imageIdx],fit: BoxFit.contain,height: 200,width: double.infinity,)),
-              const SizedBox(height:60),
+              const SizedBox(height:50),
               SizedBox(
-                height: 100,
+                height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

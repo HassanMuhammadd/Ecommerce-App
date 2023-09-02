@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:projects/FireBaseHelper.dart';
 import 'package:projects/Login.dart';
 import 'package:projects/Product.dart';
-import 'package:projects/ProductDetails.dart';
-import 'package:projects/ProductsHome.dart';
+
 import 'package:projects/components/customButton.dart';
 import 'package:projects/home_layout.dart';
 import '../components/CustomTextFormField.dart';
@@ -38,7 +37,7 @@ class _SignUpState extends State<SignUp> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                           const Text(
                             "Sign Up",
                             style: TextStyle(
                                 color: Color.fromRGBO(22, 153, 81, 1),
@@ -109,7 +108,7 @@ class _SignUpState extends State<SignUp> {
     if(formKey.currentState!.validate()){
       showDialog(context: context, builder: (context)
       {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       }

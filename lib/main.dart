@@ -10,6 +10,8 @@ import 'package:projects/ProductDetails.dart';
 import 'package:projects/ProductsHome.dart';
 import 'package:projects/SignUp.dart';
 import 'package:projects/home_layout.dart';
+import 'package:projects/theme.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,35 +35,32 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
   }
-/*
-  return MaterialApp(
-  debugShowCheckedModeBanner: false,
-  home: AnimatedSplashScreen(
-  splashIconSize: 180,
-  pageTransitionType: PageTransitionType.leftToRight,
-  splashTransition: SplashTransition.fadeTransition,
-  splash: const CircleAvatar(
-  radius: 85.0,
-  backgroundImage: AssetImage('assets/online-shopping-icon-vector-design-e-commerce-shopping-symbol-web-graphic-jpg-ai-app-logo-object-flat-image-sign-eps-art-picture-80243527.webp')
-  )
-  ,nextScreen:const HomeScreen()),
-  );*/
+
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+        create: (_)=> ThemeProvider(),
+    child: Consumer<ThemeProvider>(
+      builder: (context,themeProvider,_){
+
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AnimatedSplashScreen(
-        splashIconSize: 180,
-        splashTransition: SplashTransition.fadeTransition,
-        nextScreen: firstScreen(),
-        splash: const CircleAvatar(
-          radius: 85,
-          backgroundImage: AssetImage("assets/images/cartIcon.jpg"),
-        ),
+    theme: themeProvider.getTheme(),
+    debugShowCheckedModeBanner: false,
+    home: AnimatedSplashScreen(
+    splashIconSize: 180,
+    splashTransition: SplashTransition.fadeTransition,
+    nextScreen: firstScreen(),
+    splash: const CircleAvatar(
+    radius: 85,
+    backgroundImage: AssetImage("assets/images/cartIcon.jpg"),
+    ),
 
-      ),
+    ),
 
+    );
+    }
+    ),
     );
   }
 }
@@ -93,7 +92,6 @@ class _firstScreenState extends State<firstScreen> {
   {
     if(FirebaseAuth.instance.currentUser!=null)
     {
-      print(FirebaseAuth.instance.currentUser!.email);
       return home_layout(prods: products,userEmail: FirebaseAuth.instance.currentUser!.email,userName: FirebaseAuth.instance.currentUser!.displayName);
     }
     else {
@@ -108,7 +106,7 @@ class _firstScreenState extends State<firstScreen> {
     return  products.isEmpty?
     Container(
       color: Colors.white,
-      child: Center(
+      child: const Center(
         child: CircularProgressIndicator(
             color: Color.fromRGBO(22, 153, 81, 1),
             backgroundColor: Colors.white,

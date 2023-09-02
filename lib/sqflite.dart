@@ -36,9 +36,10 @@ class Sqflite {
   final color = "color";*/
   _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE "$myTable"(
-      "$id" INTEGER NOT NULL PRIMARY KEY,
-      "$email" TEXT NOT NULL PRIMARY KEY,
+      CREATE TABLE $myTable (
+      $id integer, 
+      $email string,  
+      PRIMARY KEY ($id, $email)
       )
     ''');
     print("Create=======================");

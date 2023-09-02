@@ -43,9 +43,9 @@ class _home_layoutState extends State<home_layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         elevation: 0,
         leading:Container(
           margin: const EdgeInsets.only(left:15),
@@ -56,7 +56,7 @@ class _home_layoutState extends State<home_layout> {
           child: IconButton(onPressed: (){},
             icon: const Icon(
               Icons.menu,
-              color: Colors.black,
+              //color: Colors.black,
             ),
           ),
         ),
@@ -67,7 +67,7 @@ class _home_layoutState extends State<home_layout> {
             Text(
               'Shop',
               style: TextStyle(
-                color: Colors.black,
+               // color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -89,7 +89,7 @@ class _home_layoutState extends State<home_layout> {
           },
               icon: const Icon(
                 Icons.logout,
-                color: Color.fromRGBO(22, 153, 81, 1),
+               // color: Color.fromRGBO(22, 153, 81, 1),
               )
           )
         ],
@@ -107,7 +107,7 @@ class _home_layoutState extends State<home_layout> {
       ci==0?ProductsHome(prods: widget.prods,userEmail: userEmail):
       ci==1?Cart(prods:widget.prods,userEmail: userEmail):
       ci==2?Favourites(prods: widget.prods,userEmail: userEmail):
-      AccountDetails(userEmail: userEmail,userName: userName,),
+      AccountDetails(userEmail: userEmail,userName: userName),
         floatingActionButton: DotNavigationBar(
         marginR: EdgeInsets.only(left:30),
         backgroundColor: Colors.black,

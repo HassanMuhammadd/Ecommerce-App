@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:projects/ProductDetails.dart';
+import 'package:projects/sqflite.dart';
 
 import 'DioHelper.dart';
 import 'Product.dart';
@@ -14,7 +15,9 @@ class ProductsHome extends StatefulWidget {
 }
 
 class _ProductsHomeState extends State<ProductsHome> {
-
+  Sqflite sqlDb = Sqflite();
+  List<Map> favList = [];
+  List<int> favId=[];
   late String? userEmail = widget.userEmail;
   late List<Product> products=widget.prods;
   List<Product> temp=[];
@@ -22,15 +25,23 @@ class _ProductsHomeState extends State<ProductsHome> {
   List<String> categories = List.filled(0, "",growable: true);
   String dropDownVal = "all";
 
-  Future<void>fetchProducts () async {
-    //List prods = await DioHelper().getData();
-    //products = Product.convertToProduct(prods);
+  void fetchProducts () async {
     temp = products;
-    //fill the categories list with items
     populateCategories();
+    List<Map>res=await sqlDb.readData('''
+      SELECT id from favourites where email = '${userEmail}';
+    ''');
+    favList = res;
+    updateIdsInList();
     setState(() {});
   }
-
+  void updateIdsInList(){
+    favId=[];
+    for(var i in favList)
+    {
+      favId.add(i.values.first);
+    }
+  }
   void populateCategories(){
     categories.add("all");
     for(var prod in products)
@@ -148,7 +159,7 @@ class _ProductsHomeState extends State<ProductsHome> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            //color: Colors.white,
                             borderRadius: BorderRadius.circular(15)
                         ),
                         child: Padding(
@@ -181,22 +192,26 @@ class _ProductsHomeState extends State<ProductsHome> {
 
                                       ),
                                       child: IconButton(
-                                        //icon:Icon(Icons.favorite_border),
-                                        icon: Icon(iconFill[index]==true?Icons.favorite:Icons.favorite_border,color: Colors.red,size: 18,),
-                                        onPressed: (){
-                                          setState(() {
-                                            iconFill[index] = !iconFill[index];
-                                          });
+                                        icon: Icon(favId.contains(products[index].id)?Icons.favorite:Icons.favorite_border,color: Colors.red,size: 18,),
+                                        onPressed: ()async{
+                                          favId.contains(products[index].id)? //delete from DB if product is already liked
+                                          await sqlDb.deleteData("Delete from favourites where id=${products[index].id} and email ='${userEmail}' ")
+                                              : //insert into DB if not liked
+                                          await sqlDb.insertData('''
+                                            INSERT INTO favourites (id,email) values (${products[index].id}, "${userEmail}")
+                                          ''');
+                                          List<Map>res=await sqlDb.readData('''
+                                           Select id from favourites where email = '${userEmail}';
+                                        ''');
+                                           favList = res;
+                                           updateIdsInList();
+                                          setState(() {});
                                         },
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              /*ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(products[index].images[0],height: 120,width: double.infinity,fit:BoxFit.fill)
-                                  ),*/
                               Text(products[index].title,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
                               Text("\$${products[index].price}",style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w900),textAlign: TextAlign.start,)
 
