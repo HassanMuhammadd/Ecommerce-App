@@ -12,7 +12,6 @@ class Sqflite {
   initialDB() async {
     String databasePath = await getDatabasesPath();
     String databaseName = "favourites.db";
-    // database_path/note.db
 
     String path = join(databasePath, databaseName);
     Database? myDb = await openDatabase(path,
@@ -23,7 +22,6 @@ class Sqflite {
   deleteDB() async {
     String databasePath = await getDatabasesPath();
     String databaseName = "favourites.db";
-    // database_path/note.db
     String path = join(databasePath, databaseName);
     await deleteDatabase(path);
   }
@@ -31,9 +29,8 @@ class Sqflite {
   final myTable = "favourites";
   final id = "id";
   final email = "email";
-  /* final title = "title";
-  final description = "description";
-  final color = "color";*/
+
+
   _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE $myTable (
@@ -42,12 +39,10 @@ class Sqflite {
       PRIMARY KEY ($id, $email)
       )
     ''');
-    print("Create=======================");
+    print("Created $myTable");
   }
 
-
-  // To Drop Column color
-  // TODO DON'T FORGET TO INCREASE VERSION
+  //if upgrade needed,increase version
   _onUpgrade(Database db, int oldVersion, int newVersion) async {
     await db.execute('''
       CREATE TABLE "new_note"(
@@ -72,7 +67,6 @@ class Sqflite {
     print("onUpgrade Done");
   }
 
-  // CRUD Operations
   // Create || INSERT
   insertData(String sql) async {
     Database? myDb = await dB;
@@ -101,18 +95,4 @@ class Sqflite {
     return response;
   }
 
-  // TODO Shortcut Methods
-
-  myInsert() async {
-  }
-
-  // Update
-  myUpdate() async {
-
-  }
-
-  // Delete
-  myDelete() async {
-
-  }
 }

@@ -5,7 +5,7 @@ import 'package:projects/sqflite.dart';
 import 'ProductDetails.dart';
 
 class Favourites extends StatefulWidget {
-  Favourites({super.key, required this.prods,required this.userEmail});
+  const Favourites({super.key, required this.prods,required this.userEmail});
   final String? userEmail;
   final List<Product> prods;
 
@@ -24,7 +24,7 @@ class _FavouritesState extends State<Favourites> {
 
   void getLikedIds()async{
     List<Map>res=await sqlDb.readData('''
-      SELECT id from favourites where email = '${userEmail}';
+      SELECT id from favourites where email = '$userEmail';
     ''');
     favList = res;
     favId=[];
@@ -54,10 +54,8 @@ class _FavouritesState extends State<Favourites> {
   Widget build(BuildContext context) {
 
     return  favId.isEmpty?
-    Container(
-      child: const Center(
-        child: Text("You have no Items on your favourites list."),
-      ),
+    const Center(
+      child: Text("You have no Items on your favourites list."),
     ) :
     Scaffold(
       body: Column(
@@ -115,13 +113,13 @@ class _FavouritesState extends State<Favourites> {
                                         icon: Icon(favId.contains(products[index].id)?Icons.favorite:Icons.favorite_border,color: Colors.red,size: 18,),
                                         onPressed: ()async{
                                           favId.contains(products[index].id)? //delete from DB if product is already liked
-                                          await sqlDb.deleteData("Delete from favourites where id=${products[index].id} and email ='${userEmail}' ")
+                                          await sqlDb.deleteData("Delete from favourites where id=${products[index].id} and email ='$userEmail' ")
                                               : //insert into DB if not liked
                                           await sqlDb.insertData('''
-                                            INSERT INTO favourites (id,email) values (${products[index].id}, "${userEmail}")
+                                            INSERT INTO favourites (id,email) values (${products[index].id}, "$userEmail")
                                           ''');
                                           List<Map>res=await sqlDb.readData('''
-                                           Select id from favourites where email = '${userEmail}';
+                                           Select id from favourites where email = '$userEmail';
                                         ''');
                                           favList = res;
                                           getLikedIds();

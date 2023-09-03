@@ -2,13 +2,9 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:projects/AccountDetails.dart';
 import 'package:projects/Login.dart';
 import 'package:projects/Product.dart';
 import 'package:projects/DioHelper.dart';
-import 'package:projects/ProductDetails.dart';
-import 'package:projects/ProductsHome.dart';
-import 'package:projects/SignUp.dart';
 import 'package:projects/home_layout.dart';
 import 'package:projects/theme.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +46,7 @@ class _MyAppState extends State<MyApp> {
     home: AnimatedSplashScreen(
     splashIconSize: 180,
     splashTransition: SplashTransition.fadeTransition,
-    nextScreen: firstScreen(),
+    nextScreen: const firstScreen(),
     splash: const CircleAvatar(
     radius: 85,
     backgroundImage: AssetImage("assets/images/cartIcon.jpg"),
@@ -75,7 +71,6 @@ class _firstScreenState extends State<firstScreen> {
 
 
   List<Product> products=[];
-  List<bool> iconFill=  List.filled(30, false, growable : true);
   Future<void>fetchProducts () async {
     List prods = await DioHelper().getData();
     products = Product.convertToProduct(prods);

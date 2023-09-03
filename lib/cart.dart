@@ -4,8 +4,6 @@ import 'package:projects/ProductDetails.dart';
 import 'package:projects/sqflite2.dart';
 
 
-
-
 class Cart extends StatefulWidget {
 
   Cart({super.key, required this.prods,required this.userEmail});
@@ -26,6 +24,7 @@ class _CartState extends State<Cart> {
   Map<int,int> count={};
   List<Product> products=[];
   int totalPrice=0;
+
   void getCartIds()async{
     List<Map>res=await sqlDb.readData('''
       SELECT id from cart where email = '${userEmail}';
@@ -52,12 +51,14 @@ class _CartState extends State<Cart> {
       }
     }
   }
+
   void initializeMap(){
     for(var id in cartId)
       {
         count[id] = 1;
       }
   }
+
   void handleIncrement(int id){
       int? num = count[id]!;
       num+=1;
@@ -66,6 +67,7 @@ class _CartState extends State<Cart> {
       setState(() {});
 
   }
+
   void handleDecrement(int id)
   {
     int? num = count[id]!;
@@ -108,7 +110,7 @@ class _CartState extends State<Cart> {
           backgroundColor: const Color.fromRGBO(22, 153, 81, 1),
 
           centerTitle: true,
-          title: Text("You'll pay \$$totalPrice",style: TextStyle(fontSize: 14),),
+          title: Text("You'll pay \$$totalPrice",style: const TextStyle(fontSize: 14),),
         ),
 
         body: Column(
@@ -128,7 +130,7 @@ class _CartState extends State<Cart> {
                       key: UniqueKey(),
                       onDismissed: (DismissDirection direction)async
                       {
-                        await sqlDb.deleteData("Delete from cart where id=${products[index].id} and email ='${userEmail}' ");
+                        await sqlDb.deleteData("Delete from cart where id=${products[index].id} and email ='$userEmail' ");
                         products.removeAt(index);
                         getCartIds();
                       },
@@ -136,12 +138,10 @@ class _CartState extends State<Cart> {
                         borderRadius:BorderRadius.circular(20) ,
                         child: InkWell(
                           onTap: (){
-                            //on Product Tap
                             Navigator.of(context).push( MaterialPageRoute(builder: (context)=>ProductDetails(prod:products[index],userEmail: userEmail)));
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              //color: Colors.white,
                                 borderRadius: BorderRadius.circular(15)
                             ),
                             child: Padding(
@@ -170,12 +170,12 @@ class _CartState extends State<Cart> {
                                       IconButton(onPressed: (){
                                         handleDecrement(products[index].id);
                                         },
-                                          icon: Icon(Icons.minimize_outlined)),
+                                          icon: const Icon(Icons.minimize_outlined)),
                                       Text("${count[products[index].id]}"),
                                       IconButton(onPressed: (){
                                         handleIncrement(products[index].id);
                                       },
-                                          icon: Icon(Icons.add)),
+                                          icon: const Icon(Icons.add)),
                                     ],
                                   )
                                 ],
@@ -189,7 +189,7 @@ class _CartState extends State<Cart> {
                   }
               ),
             ),
-            SizedBox(height:70),
+            const SizedBox(height:70),
           ],
         )
     );

@@ -39,16 +39,16 @@ class ThemeProvider with ChangeNotifier {
           ),
           backgroundColor: HexColor('333739'),
           elevation: 0.0,
-          titleTextStyle: TextStyle(
+          titleTextStyle: const TextStyle(
             color: Colors.white,
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
           ),
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.white,
           ),
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.deepOrange,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -58,14 +58,14 @@ class ThemeProvider with ChangeNotifier {
           elevation: 20.0,
           backgroundColor: HexColor('333739'),
         ),
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           bodyText1: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.w600,
             color: Colors.white,
           ),
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white54,
         ),
       );
@@ -75,9 +75,8 @@ class ThemeProvider with ChangeNotifier {
     else {
       return ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           titleSpacing: 20.0,
-          //   backwardsCompatibility: false,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.white,
             statusBarIconBrightness: Brightness.dark,
@@ -93,10 +92,10 @@ class ThemeProvider with ChangeNotifier {
             color: Colors.black,
           ),
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.deepOrange,
         ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.deepOrange,
           unselectedItemColor: Colors.grey,

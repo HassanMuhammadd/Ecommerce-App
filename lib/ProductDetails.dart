@@ -21,7 +21,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     List<Map>res=await sqlDb.readData('''
       SELECT $id from cart where email = '$userEmail' and id=$id;
     ''');
-    return res.length>0;
+    return res.isNotEmpty;
   }
 
   @override
@@ -145,7 +145,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         {
                           //insert if item not in db
                           await sqlDb.insertData('''
-                                INSERT INTO cart (id,email) values (${product.id}, "${userEmail}")
+                                INSERT INTO cart (id,email) values (${product.id}, "$userEmail")
                                             ''');
                         }
 

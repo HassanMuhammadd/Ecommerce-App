@@ -19,7 +19,6 @@ class _AccountDetailsState extends State<AccountDetails> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      // backgroundColor: Colors.grey[100],
       body:Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -27,30 +26,28 @@ class _AccountDetailsState extends State<AccountDetails> {
           children: [
             Center(
               child: Container(
-                //   color: Colors.white,
                 width: double.infinity,
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 50,
                       backgroundImage: AssetImage('assets/images/avatar.jpg'),
-
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Text(
                       "${widget.userName}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -60,7 +57,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                         color: Colors.grey[600],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
 
@@ -69,20 +66,16 @@ class _AccountDetailsState extends State<AccountDetails> {
                       height: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
-                        color: Color.fromRGBO(22, 153, 81, 1),
+                        color: const Color.fromRGBO(22, 153, 81, 1),
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-
                             'Edit Profile',
                             style: TextStyle(
-                              // fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.white,
-
-
                             ),
                           ),
                           SizedBox(
@@ -96,14 +89,14 @@ class _AccountDetailsState extends State<AccountDetails> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     )
                   ],
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
@@ -111,11 +104,9 @@ class _AccountDetailsState extends State<AccountDetails> {
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 15,
-                // fontWeight: FontWeight.bold
-
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
@@ -126,11 +117,10 @@ class _AccountDetailsState extends State<AccountDetails> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
-                  Row(
+                  const Row(
                     children: [
                       Icon(
                         Icons.language,
-                        // color: Colors.grey[800],
                         size: 30,
                       ),
                   SizedBox(
@@ -146,7 +136,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                     ],
                   ),
 
-                  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_rounded))
+                  IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_forward_ios_rounded))
                 ],
               ),
             ),
@@ -157,12 +147,10 @@ class _AccountDetailsState extends State<AccountDetails> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-                  Row(
+                  const Row(
                     children: [
                       Icon(
                         Icons.dark_mode_outlined,
-                        //color: Colors.grey[800],
                         size: 30,
                       ),
                   SizedBox(
@@ -185,8 +173,8 @@ class _AccountDetailsState extends State<AccountDetails> {
                         builder: (context, themeProvider, _) {
                           return IconButton(
                               icon: themeProvider.isDarkMode
-                                  ? FaIcon(FontAwesomeIcons.toggleOn)
-                                  : FaIcon(FontAwesomeIcons.toggleOff),
+                                  ? const FaIcon(FontAwesomeIcons.toggleOn)
+                                  : const FaIcon(FontAwesomeIcons.toggleOff),
                               onPressed: () {
                                 setState(() {
 
@@ -216,7 +204,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
-                  Row(
+                  const Row(
                     children: [
                       Icon(
                         Icons.credit_card_outlined,
@@ -236,7 +224,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                     ],
                   ),
 
-                  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_rounded))
+                  IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_forward_ios_rounded))
                 ],
               ),
             ),
@@ -246,11 +234,10 @@ class _AccountDetailsState extends State<AccountDetails> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
+                  const Row(
                     children: [
                       Icon(
                         Icons.help_outline,
-                        //color: Colors.grey[800],
                         size: 30,
                       ),
                   SizedBox(
@@ -266,7 +253,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                     ],
                   ),
 
-                  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_rounded))
+                  IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_forward_ios_rounded))
                 ],
               ),
             ),

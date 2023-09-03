@@ -9,7 +9,7 @@ import 'package:projects/home_layout.dart';
 import '../components/CustomTextFormField.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({required this.prods});
+  const SignUp({super.key, required this.prods});
   final List<Product> prods;
 
   @override
@@ -67,7 +67,6 @@ class _SignUpState extends State<SignUp> {
                               errorText: " Please enter your password ",
                               icons: Icons.lock),
 
-                          //ToDosignUpAction
                           CustomButton(text: "Sign Up", onTapAction: signUpAction),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,

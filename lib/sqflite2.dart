@@ -12,7 +12,6 @@ class Sqflite2 {
   initialDB() async {
     String databasePath = await getDatabasesPath();
     String databaseName = "cart.db";
-    // database_path/note.db
 
     String path = join(databasePath, databaseName);
     Database? myDb = await openDatabase(path,
@@ -23,7 +22,7 @@ class Sqflite2 {
   deleteDB() async {
     String databasePath = await getDatabasesPath();
     String databaseName = "cart.db";
-    // database_path/note.db
+
     String path = join(databasePath, databaseName);
     await deleteDatabase(path);
   }
@@ -40,11 +39,10 @@ class Sqflite2 {
       PRIMARY KEY ($id, $email)
       )
     ''');
-    print("Create=======================");
+    print("Created $myTable");
   }
 
 
-  // TODO DON'T FORGET TO INCREASE VERSION
   _onUpgrade(Database db, int oldVersion, int newVersion) async {
     await db.execute('''
       CREATE TABLE "new_note"(
@@ -69,7 +67,6 @@ class Sqflite2 {
     print("onUpgrade Done");
   }
 
-  // CRUD Operations
   // Create || INSERT
   insertData(String sql) async {
     Database? myDb = await dB;

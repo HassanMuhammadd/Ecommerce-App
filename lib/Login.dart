@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:projects/FireBaseHelper.dart';
 import 'package:projects/Product.dart';
-import 'package:projects/ProductsHome.dart';
 import 'package:projects/SignUp.dart';
 import 'package:projects/home_layout.dart';
-
 import '../components/CustomButton.dart';
 import '../components/CustomTextFormField.dart';
 
@@ -83,7 +80,9 @@ class _LogInState extends State<LogIn> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
                                           color: Color.fromRGBO(22, 153, 81, 1),
-                                      )))
+                                      )
+                                    )
+                              )
                             ],
                           )
                         ],

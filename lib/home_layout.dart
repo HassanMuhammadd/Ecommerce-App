@@ -2,19 +2,15 @@ import 'package:projects/AccountDetails.dart';
 import 'package:projects/FireBaseHelper.dart';
 import 'package:projects/Login.dart';
 import 'package:projects/Product.dart';
-import 'package:projects/ProductDetails.dart';
 import 'package:projects/ProductsHome.dart';
 import 'package:projects/cart.dart';
 import 'package:projects/favourites.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
-
-import 'DioHelper.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 
 class home_layout extends StatefulWidget {
 
-  home_layout({Key? key, required this.prods, required this.userEmail, required this.userName}) : super(key: key);
+  const home_layout({Key? key, required this.prods, required this.userEmail, required this.userName}) : super(key: key);
   final String? userEmail;
   final String? userName;
   final List<Product> prods;
@@ -23,9 +19,11 @@ class home_layout extends StatefulWidget {
 }
 
 class _home_layoutState extends State<home_layout> {
+
   late String? userEmail = widget.userEmail;
   late String? userName = widget.userName;
   late List<Product> products=widget.prods;
+  int ci=0;
 
 
 
@@ -34,7 +32,6 @@ class _home_layoutState extends State<home_layout> {
       ci=index;
     });
   }
-  int ci=0;
 
   @override
   void initState() {
@@ -43,20 +40,15 @@ class _home_layoutState extends State<home_layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       appBar: AppBar(
-        //backgroundColor: Colors.white,
         elevation: 0,
         leading:Container(
           margin: const EdgeInsets.only(left:15),
           decoration: const BoxDecoration(
-            //borderRadius: BorderRadius.circular(0),
-            //color: Colors.grey[200],
           ),
           child: IconButton(onPressed: (){},
             icon: const Icon(
               Icons.menu,
-              //color: Colors.black,
             ),
           ),
         ),
@@ -67,7 +59,6 @@ class _home_layoutState extends State<home_layout> {
             Text(
               'Shop',
               style: TextStyle(
-               // color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -89,7 +80,6 @@ class _home_layoutState extends State<home_layout> {
           },
               icon: const Icon(
                 Icons.logout,
-               // color: Color.fromRGBO(22, 153, 81, 1),
               )
           )
         ],
@@ -97,7 +87,7 @@ class _home_layoutState extends State<home_layout> {
       body: products.isEmpty?
       Container(
         color: Colors.white,
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(
             color: Color.fromRGBO(22, 153, 81, 1),
             backgroundColor: Colors.white,
@@ -109,7 +99,7 @@ class _home_layoutState extends State<home_layout> {
       ci==2?Favourites(prods: widget.prods,userEmail: userEmail):
       AccountDetails(userEmail: userEmail,userName: userName),
         floatingActionButton: DotNavigationBar(
-        marginR: EdgeInsets.only(left:30),
+        marginR: const EdgeInsets.only(left:30),
         backgroundColor: Colors.black,
         currentIndex:ci,
         unselectedItemColor: Colors.grey,

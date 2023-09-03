@@ -5,7 +5,7 @@ import 'package:projects/sqflite.dart';
 import 'Product.dart';
 
 class ProductsHome extends StatefulWidget {
-   ProductsHome({super.key, required this.prods, required this.userEmail});
+   const ProductsHome({super.key, required this.prods, required this.userEmail});
    final String? userEmail;
    final List<Product> prods;
    @override
@@ -13,13 +13,14 @@ class ProductsHome extends StatefulWidget {
 }
 
 class _ProductsHomeState extends State<ProductsHome> {
+
   Sqflite sqlDb = Sqflite();
   List<Map> favList = [];
   List<int> favId=[];
   late String? userEmail = widget.userEmail;
   late List<Product> products=widget.prods;
   List<Product> temp=[];
-  List<bool> iconFill=  List.filled(30, false, growable : true);
+  late List<Product> allProds= widget.prods;
   List<String> categories = List.filled(0, "",growable: true);
   String dropDownVal = "all";
 
@@ -27,7 +28,7 @@ class _ProductsHomeState extends State<ProductsHome> {
     temp = products;
     populateCategories();
     List<Map>res=await sqlDb.readData('''
-      SELECT id from favourites where email = '${userEmail}';
+      SELECT id from favourites where email = '$userEmail';
     ''');
     favList = res;
     updateIdsInList();
@@ -52,6 +53,18 @@ class _ProductsHomeState extends State<ProductsHome> {
     setState(() {});
   }
 
+  void searchFilter(String text){
+
+    products = [];
+    for(var p in allProds)
+      {
+        if(p.title.toLowerCase().contains(text.toLowerCase()) && (dropDownVal==p.category || dropDownVal=="all"))
+          {
+            products.add(p);
+          }
+      }
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -63,7 +76,6 @@ class _ProductsHomeState extends State<ProductsHome> {
   Widget build(BuildContext context) {
 
     return  Scaffold(
-      //backgroundColor: Colors.white,
       body: Column(
         children: [
 
@@ -73,15 +85,15 @@ class _ProductsHomeState extends State<ProductsHome> {
 
                 width: 350,
                 decoration: BoxDecoration(
-
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.grey[200],
-
-
                 ),
                 child: Center(
                   child: TextFormField(
-                    //     cursorHeight: 20,
+                    style: const TextStyle(
+                      color: Colors.black38
+                    ),
+                    onChanged: searchFilter,
                     cursorColor: Colors.black,
                     textAlign: TextAlign.start,
                     decoration: const InputDecoration(
@@ -92,7 +104,6 @@ class _ProductsHomeState extends State<ProductsHome> {
                           fontWeight: FontWeight.bold
                       ),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
-                      //          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 117,),
                       border: InputBorder.none,
                       focusColor: Colors.deepOrange,
                       prefixIcon: Icon(
@@ -118,9 +129,9 @@ class _ProductsHomeState extends State<ProductsHome> {
                 elevation: 16,
                 underline: Container(
                   height: 2,
-                  color: Color.fromRGBO(22, 153, 81, 1)
+                  color: const Color.fromRGBO(22, 153, 81, 1)
                 ),
-                iconEnabledColor:Color.fromRGBO(22, 153, 81, 1),
+                iconEnabledColor:const Color.fromRGBO(22, 153, 81, 1),
                   items: categories.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -152,12 +163,10 @@ class _ProductsHomeState extends State<ProductsHome> {
 
                     child: InkWell(
                       onTap: (){
-                        //on Product Tap
                         Navigator.of(context).push( MaterialPageRoute(builder: (context)=>ProductDetails(prod:products[index],userEmail: userEmail)));
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            //color: Colors.white,
                             borderRadius: BorderRadius.circular(15)
                         ),
                         child: Padding(
@@ -192,14 +201,15 @@ class _ProductsHomeState extends State<ProductsHome> {
                                       child: IconButton(
                                         icon: Icon(favId.contains(products[index].id)?Icons.favorite:Icons.favorite_border,color: Colors.red,size: 18,),
                                         onPressed: ()async{
-                                          favId.contains(products[index].id)? //delete from DB if product is already liked
-                                          await sqlDb.deleteData("Delete from favourites where id=${products[index].id} and email ='${userEmail}' ")
+                                          //delete from DB if product is already liked
+                                          favId.contains(products[index].id)?
+                                          await sqlDb.deleteData("Delete from favourites where id=${products[index].id} and email ='$userEmail' ")
                                               : //insert into DB if not liked
                                           await sqlDb.insertData('''
-                                            INSERT INTO favourites (id,email) values (${products[index].id}, "${userEmail}")
+                                            INSERT INTO favourites (id,email) values (${products[index].id}, "$userEmail")
                                           ''');
                                           List<Map>res=await sqlDb.readData('''
-                                           Select id from favourites where email = '${userEmail}';
+                                           Select id from favourites where email = '$userEmail';
                                         ''');
                                            favList = res;
                                            updateIdsInList();
